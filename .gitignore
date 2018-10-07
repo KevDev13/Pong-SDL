@@ -19,6 +19,8 @@
 *.dll
 !SDL2.dll
 !SDL2*.dll
+!lib*.dll
+!zlib1.dll
 
 # Fortran module files
 *.mod
