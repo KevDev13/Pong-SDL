@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Paddle.cpp" />
     <ClCompile Include="src\Pong.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Paddle.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
