@@ -8,6 +8,8 @@ kevin@kilometergames.com
 #include <stdio.h>
 #include <iostream>
 
+#include "Paddle.h"
+
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_WIDTH = 640;
 
@@ -29,6 +31,9 @@ int main(int argc, char* args[])
 	bool quit = false;
 
 	SDL_Event sdlEvent;
+
+	Paddle* player1 = new Paddle(1, false);
+	player1->LoadDefaultImage(renderer);
 	
 	// main loop
 	while (!quit)
@@ -44,6 +49,7 @@ int main(int argc, char* args[])
 
 		// clear then update the screen
 		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, &player1->GetRectangle());
 		SDL_RenderPresent(renderer);
 	}
 
@@ -80,6 +86,12 @@ bool init(SDL_Window* &window, SDL_Renderer* &renderer)
 		return false;
 	}
 
+	// initialize SDL Image
+	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
+	{
+		std::cout << IMG_GetError();
+		return false;
+	}
 	return true;
 }
 
@@ -92,5 +104,6 @@ void cleanup(SDL_Window* &window, SDL_Renderer* &renderer)
 	window = nullptr;
 
 	// SDL cleanup
+	IMG_Quit();
 	SDL_Quit();
 }
