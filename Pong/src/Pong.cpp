@@ -42,7 +42,7 @@ int main(int argc, char* args[])
 			}
 		}
 
-		// clear the update the screen
+		// clear then update the screen
 		SDL_RenderClear(renderer);
 		SDL_RenderPresent(renderer);
 	}
@@ -91,5 +91,6 @@ void cleanup(SDL_Window* &window, SDL_Renderer* &renderer)
 	renderer = nullptr;
 	window = nullptr;
 
+	// SDL cleanup
 	SDL_Quit();
 }
