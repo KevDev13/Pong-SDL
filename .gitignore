@@ -47,6 +47,8 @@
 *.userprefs
 
 # Build results
+/Pong/[Dd]ebug/
+/Pong/[Rr]elease/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
