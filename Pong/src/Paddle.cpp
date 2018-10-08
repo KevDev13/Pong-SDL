@@ -52,7 +52,7 @@ bool Paddle::LoadDefaultImage(SDL_Renderer* &renderer)
 bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 {
 	SDL_Surface* loadedImage = nullptr;
-	SDL_Texture* returnImage = nullptr;
+	SDL_Texture* texture = nullptr;
 
 	// load image from file
 	loadedImage = IMG_Load(file.c_str());
@@ -63,9 +63,9 @@ bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 		return false;
 	}
 
-	returnImage = SDL_CreateTextureFromSurface(renderer, loadedImage);
+	texture = SDL_CreateTextureFromSurface(renderer, loadedImage);
 	SDL_FreeSurface(loadedImage);
-	_image = returnImage;
+	_image = texture;
 	return true;
 }
 
