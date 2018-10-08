@@ -35,5 +35,7 @@ private:
 	static const std::string _ImageFileName;
 	static const int _width;
 	static const int _height;
+
+	void UpdateRectanglePos();	// update rectangle with new position so it's drawn correctly
 };
 

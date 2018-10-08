@@ -16,17 +16,16 @@ Paddle::Paddle(uint8_t player, int windowWidth, int windowHeight, bool icc)
 	_player = player;
 	_bIsComputerControlled = icc;
 
-	// set X position
-	if (player == 1)
+	// set X position based off of which player it is
+	switch (player)
 	{
+	case 1:
 		_xpos = 20;
-	}
-	else if(player == 2)
-	{
+		break;
+	case 2:
 		_xpos = windowWidth - 20 - _width;
-	}
-	else
-	{
+		break;
+	default:
 		std::cout << "Error, paddle configured to something other than player 1 or 2" << std::endl;
 	}
 
@@ -68,6 +67,12 @@ bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 	SDL_FreeSurface(loadedImage);
 	_image = returnImage;
 	return true;
+}
+
+void Paddle::UpdateRectanglePos()
+{
+	_rectangle.x = _xpos;
+	_rectangle.y = _ypos;
 }
 
 Paddle::~Paddle()
