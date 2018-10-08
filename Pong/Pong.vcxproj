@@ -77,12 +77,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>F:\KevDev\SDL2\SDL2_image-2.0.3\include;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\KevDev\SDL2\SDL2_image-2.0.3\lib\x86;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\KevDev\SDL2\Extensions\SDL2_image-2.0.3\include;D:\KevDev\SDL2\SDL2-2.0.8\include;F:\KevDev\SDL2\SDL2_image-2.0.3\include;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\KevDev\SDL2\Extensions\SDL2_image-2.0.3\lib\x86;D:\KevDev\SDL2\SDL2-2.0.8\lib\x86;F:\KevDev\SDL2\SDL2_image-2.0.3\lib\x86;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>F:\KevDev\SDL2\SDL2_image-2.0.3\include;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\KevDev\SDL2\SDL2_image-2.0.3\lib\x86;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\KevDev\SDL2\Extensions\SDL2_image-2.0.3\include;D:\KevDev\SDL2\SDL2-2.0.8\include;F:\KevDev\SDL2\SDL2_image-2.0.3\include;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\KevDev\SDL2\Extensions\SDL2_image-2.0.3\lib\x86;D:\KevDev\SDL2\SDL2-2.0.8\lib\x86;F:\KevDev\SDL2\SDL2_image-2.0.3\lib\x86;F:\KevDev\SDL2\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>D:\KevDev\SDL2\Extensions\SDL2_image-2.0.3\include;D:\KevDev\SDL2\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
@@ -112,7 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -144,7 +144,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
