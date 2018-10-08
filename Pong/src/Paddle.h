@@ -12,7 +12,7 @@ class Paddle
 {
 public:
 	Paddle();
-	Paddle(uint8_t player, int windowHeight, bool icc = false);
+	Paddle(uint8_t player, int windowWidth, int windowHeight, bool icc = false);
 	~Paddle();
 	void setPlayerControlled(bool b, uint8_t p = 0);
 	bool LoadDefaultImage(SDL_Renderer* &renderer);
@@ -30,10 +30,10 @@ private:
 	SDL_Texture* _image;	// texture of the paddle
 	SDL_Rect _rectangle;	// rectangle used to render the paddle
 	int _ypos;	// current Y-position of the paddle
+	int _xpos;	// current X-position of the paddle
 
 	static const std::string _ImageFileName;
 	static const int _width;
 	static const int _height;
-	static const int _xpos;
 };
 

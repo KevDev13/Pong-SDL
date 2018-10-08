@@ -1,9 +1,9 @@
 #include "Paddle.h"
+#include <iostream>
 
 const std::string Paddle::_ImageFileName = "./img/Paddle.png";
 const int Paddle::_width = 10;
 const int Paddle::_height = 50;
-const int Paddle::_xpos = 20;
 
 Paddle::Paddle()
 {
@@ -11,10 +11,24 @@ Paddle::Paddle()
 	_bIsComputerControlled = false;
 }
 
-Paddle::Paddle(uint8_t player, int windowHeight, bool icc)
+Paddle::Paddle(uint8_t player, int windowWidth, int windowHeight, bool icc)
 {
 	_player = player;
 	_bIsComputerControlled = icc;
+
+	// set X position
+	if (player == 1)
+	{
+		_xpos = 20;
+	}
+	else if(player == 2)
+	{
+		_xpos = windowWidth - 20 - _width;
+	}
+	else
+	{
+		std::cout << "Error, paddle configured to something other than player 1 or 2" << std::endl;
+	}
 
 	// set paddle to the middle of the window
 	_ypos = (windowHeight / 2) - (_height / 2);

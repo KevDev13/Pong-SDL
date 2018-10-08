@@ -35,8 +35,11 @@ int main(int argc, char* args[])
 
 	SDL_Event sdlEvent;	// SDL event
 
-	Paddle* player1 = new Paddle(1, SCREEN_HEIGHT);	// paddle for player 1
+	Paddle* player1 = new Paddle(1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
 	player1->LoadDefaultImage(renderer);
+
+	Paddle* player2 = new Paddle(2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
+	player2->LoadDefaultImage(renderer);
 	
 	/* MAIN LOOP */
 	while (!quit)
@@ -53,6 +56,7 @@ int main(int argc, char* args[])
 		// clear then update the screen
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, &player1->GetRectangle());
+		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, &player2->GetRectangle());
 		SDL_RenderPresent(renderer);
 	}
 
