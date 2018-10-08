@@ -18,8 +18,10 @@ void cleanup(SDL_Window* &window, SDL_Renderer* &renderer);
 
 int main(int argc, char* args[])
 {
-	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	/* Initialization */
+
+	SDL_Window* window = nullptr;	// SDL window
+	SDL_Renderer* renderer = nullptr;	// SDL renderer attached to the window
 
 	// initialize SDL and window, and if unable to do so, quit
 	if (!init(window, renderer))
@@ -28,14 +30,15 @@ int main(int argc, char* args[])
 		return 1;
 	}
 	
+	// value will be set to true when user wants to quit the game
 	bool quit = false;
 
-	SDL_Event sdlEvent;
+	SDL_Event sdlEvent;	// SDL event
 
-	Paddle* player1 = new Paddle(1, false);
+	Paddle* player1 = new Paddle(1, false);	// paddle for player 1
 	player1->LoadDefaultImage(renderer);
 	
-	// main loop
+	/* MAIN LOOP */
 	while (!quit)
 	{
 		// poll for & handle SDL events
@@ -53,6 +56,8 @@ int main(int argc, char* args[])
 		SDL_RenderPresent(renderer);
 	}
 
+	/* Cleanup 
+	*/
 	cleanup(window, renderer);
 
 	return 0;
