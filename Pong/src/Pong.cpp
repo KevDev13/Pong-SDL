@@ -35,7 +35,7 @@ int main(int argc, char* args[])
 
 	SDL_Event sdlEvent;	// SDL event
 
-	Paddle* player1 = new Paddle(1, false);	// paddle for player 1
+	Paddle* player1 = new Paddle(1, SCREEN_HEIGHT);	// paddle for player 1
 	player1->LoadDefaultImage(renderer);
 	
 	/* MAIN LOOP */

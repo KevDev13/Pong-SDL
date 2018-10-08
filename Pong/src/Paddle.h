@@ -12,7 +12,7 @@ class Paddle
 {
 public:
 	Paddle();
-	Paddle(uint8_t player, bool isComputerControlled);
+	Paddle(uint8_t player, int windowHeight, bool icc = false);
 	~Paddle();
 	void setPlayerControlled(bool b, uint8_t p = 0);
 	bool LoadDefaultImage(SDL_Renderer* &renderer);
@@ -22,14 +22,18 @@ public:
 	inline bool isComputerControlled() const { return _bIsComputerControlled; }
 	inline bool isPlayerControlled() const { return !_bIsComputerControlled; }
 	inline SDL_Texture* GetImage() const { return _image; }
-	inline SDL_Rect GetRectangle() const { return rectangle; }
+	inline SDL_Rect GetRectangle() const { return _rectangle; }
 
 private:
 	uint8_t _player;	// player 1 or 2
 	bool _bIsComputerControlled;	// is the computer controlling this paddle?
-	SDL_Texture* _image;
-	SDL_Rect rectangle;
+	SDL_Texture* _image;	// texture of the paddle
+	SDL_Rect _rectangle;	// rectangle used to render the paddle
+	int _ypos;	// current Y-position of the paddle
 
-	static const std::string sImageFileName;
+	static const std::string _ImageFileName;
+	static const int _width;
+	static const int _height;
+	static const int _xpos;
 };
 

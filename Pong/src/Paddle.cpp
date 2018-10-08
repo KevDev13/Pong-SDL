@@ -1,6 +1,9 @@
 #include "Paddle.h"
 
-const std::string Paddle::sImageFileName = "./img/Paddle.png";
+const std::string Paddle::_ImageFileName = "./img/Paddle.png";
+const int Paddle::_width = 10;
+const int Paddle::_height = 50;
+const int Paddle::_xpos = 20;
 
 Paddle::Paddle()
 {
@@ -8,14 +11,18 @@ Paddle::Paddle()
 	_bIsComputerControlled = false;
 }
 
-Paddle::Paddle(uint8_t player, bool icc)
+Paddle::Paddle(uint8_t player, int windowHeight, bool icc)
 {
 	_player = player;
 	_bIsComputerControlled = icc;
-	rectangle.x = 0;
-	rectangle.y = 0;
-	rectangle.w = 10;
-	rectangle.h = 50;
+
+	// set paddle to the middle of the window
+	_ypos = (windowHeight / 2) - (_height / 2);
+
+	_rectangle.x = _xpos;
+	_rectangle.y = _ypos;
+	_rectangle.w = _width;
+	_rectangle.h = _height;
 }
 
 void Paddle::setPlayerControlled(bool b, uint8_t p)
@@ -26,7 +33,7 @@ void Paddle::setPlayerControlled(bool b, uint8_t p)
 
 bool Paddle::LoadDefaultImage(SDL_Renderer* &renderer)
 {
-	return LoadImage(renderer, sImageFileName);
+	return LoadImage(renderer, _ImageFileName);
 }
 
 bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
