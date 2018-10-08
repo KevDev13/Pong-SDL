@@ -1,5 +1,8 @@
 ## C++
 
+# ignore VS project settins since desktop and PC have SDL in different folders
+Pong/Pong.vcxproj
+
 # Prerequisites
 *.d
 
