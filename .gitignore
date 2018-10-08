@@ -1,9 +1,5 @@
 ## C++
 
-# this is here because the laptop and desktop have different project settings
-# will require each computer to setup SDL bindings individually
-Pong/Pong.vcxproj
-
 # Prerequisites
 *.d
 
@@ -374,4 +370,3 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-
