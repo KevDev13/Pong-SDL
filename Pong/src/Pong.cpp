@@ -41,6 +41,7 @@ int main(int argc, char* args[])
 
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
+	Uint32 previousTicks = SDL_GetTicks();
 
 	int fc = 0;
 	
@@ -48,7 +49,8 @@ int main(int argc, char* args[])
 	while (!quit)
 	{
 		// calculate delta time since last frame
-		currentTicks = SDL_GetTicks() - currentTicks;
+		currentTicks = SDL_GetTicks() - previousTicks;
+		previousTicks = SDL_GetTicks();
 
 		// poll for & handle SDL events
 		while (SDL_PollEvent( &sdlEvent ) != 0)
@@ -67,7 +69,6 @@ int main(int argc, char* args[])
 
 		++fc;
 		std::cout << fc << std::endl;
-		std::cout << currentTicks << std::endl;
 	}
 
 	/* Cleanup 
