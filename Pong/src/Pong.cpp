@@ -8,8 +8,10 @@ Pong clone.
 
 #include "Paddle.h"
 
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_WIDTH = 640;
+constexpr int SCREEN_HEIGHT = 480;
+constexpr int SCREEN_WIDTH = 640;
+constexpr int MAX_FPS = 60;	// maximum FPS
+constexpr int MAX_FPS_TICKS = 1000 / MAX_FPS;	// max FPS in ticks
 
 bool init(SDL_Window* &window, SDL_Renderer* &renderer);
 void cleanup(SDL_Window* &window, SDL_Renderer* &renderer);
@@ -42,8 +44,6 @@ int main(int argc, char* args[])
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
 	Uint32 previousTicks = SDL_GetTicks();
-
-	int fc = 0;
 	
 	/* MAIN LOOP */
 	while (!quit)
@@ -59,6 +59,24 @@ int main(int argc, char* args[])
 			{
 				quit = true;
 			}
+			else if (sdlEvent.type == SDL_KEYDOWN)
+			{
+				switch (sdlEvent.key.keysym.sym)
+				{
+				case SDLK_w:
+					// move player 1 up
+					break;
+				case SDLK_s:
+					// move player 1 down
+					break;
+				case SDLK_UP:
+					// move player 2 up
+					break;
+				case SDLK_DOWN:
+					// move player 2 down
+					break;
+				}
+			}
 		}
 
 		// clear then update the screen
@@ -67,8 +85,7 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, &player2->GetRectangle());
 		SDL_RenderPresent(renderer);
 
-		++fc;
-		std::cout << fc << std::endl;
+		std::cout << currentTicks;
 	}
 
 	/* Cleanup 
