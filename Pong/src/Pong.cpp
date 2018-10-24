@@ -52,6 +52,12 @@ int main(int argc, char* args[])
 		currentTicks = SDL_GetTicks() - previousTicks;
 		previousTicks = SDL_GetTicks();
 
+		if (currentTicks == 0)
+		{
+			SDL_Delay(1);
+			currentTicks = 1;
+		}
+
 		// poll for & handle SDL events
 		while (SDL_PollEvent( &sdlEvent ) != 0)
 		{

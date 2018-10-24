@@ -69,6 +69,18 @@ bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 	return true;
 }
 
+void Paddle::MoveUp(Uint32 deltaTicks)
+{
+	_ypos -= 1 * deltaTicks;
+	UpdateRectanglePos();
+}
+
+void Paddle::MoveDown(Uint32 deltaTicks)
+{
+	_ypos += 1 * deltaTicks;
+	UpdateRectanglePos();
+}
+
 void Paddle::UpdateRectanglePos()
 {
 	_rectangle.x = _xpos;

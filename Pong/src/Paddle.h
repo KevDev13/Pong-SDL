@@ -17,6 +17,8 @@ public:
 	void setPlayerControlled(bool b, uint8_t p = 0);
 	bool LoadDefaultImage(SDL_Renderer* &renderer);
 	bool LoadImage(SDL_Renderer* &renderer, std::string file);
+	void MoveUp(Uint32 deltaTicks);
+	void MoveDown(Uint32 deltaTicks);
 
 	inline uint8_t getPlayer() const { return _player; }
 	inline bool isComputerControlled() const { return _bIsComputerControlled; }
