@@ -88,8 +88,7 @@ int main(int argc, char* args[])
 		std::cout << currentTicks;
 	}
 
-	/* Cleanup 
-	*/
+	/* Cleanup */
 	cleanup(window, renderer);
 
 	return 0;
