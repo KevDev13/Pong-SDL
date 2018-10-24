@@ -1,7 +1,5 @@
 /*
 Pong clone.
-(c) 2018 Kilometer Games
-kevin@kilometergames.com
 */
 
 #include <SDL.h>
@@ -40,10 +38,18 @@ int main(int argc, char* args[])
 
 	Paddle* player2 = new Paddle(2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
 	player2->LoadDefaultImage(renderer);
+
+	// setup initial ticks for delta time calculations
+	Uint32 currentTicks = SDL_GetTicks();
+
+	int fc = 0;
 	
 	/* MAIN LOOP */
 	while (!quit)
 	{
+		// calculate delta time since last frame
+		currentTicks = SDL_GetTicks() - currentTicks;
+
 		// poll for & handle SDL events
 		while (SDL_PollEvent( &sdlEvent ) != 0)
 		{
@@ -58,6 +64,10 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, &player1->GetRectangle());
 		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, &player2->GetRectangle());
 		SDL_RenderPresent(renderer);
+
+		++fc;
+		std::cout << fc << std::endl;
+		std::cout << currentTicks << std::endl;
 	}
 
 	/* Cleanup 
