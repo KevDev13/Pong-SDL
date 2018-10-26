@@ -73,6 +73,7 @@ bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 void Paddle::MoveUp(Uint32 deltaTicks)
 {
 	_ypos -= _movementSpeed * deltaTicks;
+	// check to ensure paddle is not going outside screen
 	if (_ypos < 0)
 	{
 		_ypos = 0;
@@ -83,6 +84,7 @@ void Paddle::MoveUp(Uint32 deltaTicks)
 void Paddle::MoveDown(Uint32 deltaTicks, const int screenHeight)
 {
 	_ypos += _movementSpeed * deltaTicks;
+	// check to ensure paddle is not going outside screen
 	if (_ypos > (screenHeight - _height))
 	{
 		_ypos = screenHeight - _height;
