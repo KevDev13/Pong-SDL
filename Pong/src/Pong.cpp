@@ -1,7 +1,5 @@
 /*
 Pong clone.
-(c) 2018 Kilometer Games
-kevin@kilometergames.com
 */
 
 #include <SDL.h>
@@ -10,8 +8,10 @@ kevin@kilometergames.com
 
 #include "Paddle.h"
 
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_WIDTH = 640;
+constexpr int SCREEN_HEIGHT = 480;
+constexpr int SCREEN_WIDTH = 640;
+constexpr int MAX_FPS = 60;	// maximum FPS
+constexpr int MAX_FPS_TICKS = 1000 / MAX_FPS;	// max FPS in ticks
 
 bool init(SDL_Window* &window, SDL_Renderer* &renderer);
 void cleanup(SDL_Window* &window, SDL_Renderer* &renderer);
@@ -35,12 +35,29 @@ int main(int argc, char* args[])
 
 	SDL_Event sdlEvent;	// SDL event
 
-	Paddle* player1 = new Paddle(1, false);	// paddle for player 1
+	Paddle* player1 = new Paddle(1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
 	player1->LoadDefaultImage(renderer);
+
+	Paddle* player2 = new Paddle(2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
+	player2->LoadDefaultImage(renderer);
+
+	// setup initial ticks for delta time calculations
+	Uint32 currentTicks = SDL_GetTicks();
+	Uint32 previousTicks = SDL_GetTicks();
 	
 	/* MAIN LOOP */
 	while (!quit)
 	{
+		// calculate delta time since last frame
+		currentTicks = SDL_GetTicks() - previousTicks;
+		previousTicks = SDL_GetTicks();
+
+		if (currentTicks == 0)
+		{
+			SDL_Delay(1);
+			currentTicks = 1;
+		}
+
 		// poll for & handle SDL events
 		while (SDL_PollEvent( &sdlEvent ) != 0)
 		{
@@ -48,16 +65,43 @@ int main(int argc, char* args[])
 			{
 				quit = true;
 			}
+			else if (sdlEvent.type == SDL_KEYDOWN)
+			{
+				// handle keyboard input... probably
+			}
+		}
+
+		// get keyboard states and handle paddle movement
+		const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
+
+		if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
+		{
+			player1->MoveUp(currentTicks);
+		}
+		else if (keyStates[SDL_SCANCODE_S] && !keyStates[SDL_SCANCODE_W])
+		{
+			player1->MoveDown(currentTicks);
+		}
+
+		if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
+		{
+			player2->MoveUp(currentTicks);
+		}
+		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
+		{
+			player2->MoveDown(currentTicks);
 		}
 
 		// clear then update the screen
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, &player1->GetRectangle());
+		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, &player2->GetRectangle());
 		SDL_RenderPresent(renderer);
+
+		//std::cout << currentTicks;
 	}
 
-	/* Cleanup 
-	*/
+	/* Cleanup */
 	cleanup(window, renderer);
 
 	return 0;
