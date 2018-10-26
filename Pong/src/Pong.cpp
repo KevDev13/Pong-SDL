@@ -52,6 +52,7 @@ int main(int argc, char* args[])
 		currentTicks = SDL_GetTicks() - previousTicks;
 		previousTicks = SDL_GetTicks();
 
+		// prevent a tick of 0; since FPS is capped, may be able to remove this eventually
 		if (currentTicks == 0)
 		{
 			SDL_Delay(1);
@@ -74,6 +75,7 @@ int main(int argc, char* args[])
 		// get keyboard states and handle paddle movement
 		const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
 
+		// player 1 movement - move if only 1 key is pressed, prevents movement from both keys
 		if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
 		{
 			player1->MoveUp(currentTicks);
@@ -83,6 +85,7 @@ int main(int argc, char* args[])
 			player1->MoveDown(currentTicks, SCREEN_HEIGHT);
 		}
 
+		// player 2 movement - move if only 1 key is pressed, prevents movement from both keys
 		if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
 		{
 			player2->MoveUp(currentTicks);
