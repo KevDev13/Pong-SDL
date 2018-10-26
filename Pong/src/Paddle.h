@@ -18,7 +18,7 @@ public:
 	bool LoadDefaultImage(SDL_Renderer* &renderer);
 	bool LoadImage(SDL_Renderer* &renderer, std::string file);
 	void MoveUp(Uint32 deltaTicks);
-	void MoveDown(Uint32 deltaTicks);
+	void MoveDown(Uint32 deltaTicks, const int screenHeight);
 
 	inline uint8_t getPlayer() const { return _player; }
 	inline bool isComputerControlled() const { return _bIsComputerControlled; }

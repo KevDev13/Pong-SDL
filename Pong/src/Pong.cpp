@@ -80,7 +80,7 @@ int main(int argc, char* args[])
 		}
 		else if (keyStates[SDL_SCANCODE_S] && !keyStates[SDL_SCANCODE_W])
 		{
-			player1->MoveDown(currentTicks);
+			player1->MoveDown(currentTicks, SCREEN_HEIGHT);
 		}
 
 		if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
@@ -89,7 +89,7 @@ int main(int argc, char* args[])
 		}
 		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
 		{
-			player2->MoveDown(currentTicks);
+			player2->MoveDown(currentTicks, SCREEN_HEIGHT);
 		}
 
 		// clear then update the screen

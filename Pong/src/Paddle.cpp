@@ -73,12 +73,20 @@ bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 void Paddle::MoveUp(Uint32 deltaTicks)
 {
 	_ypos -= _movementSpeed * deltaTicks;
+	if (_ypos < 0)
+	{
+		_ypos = 0;
+	}
 	UpdateRectanglePos();
 }
 
-void Paddle::MoveDown(Uint32 deltaTicks)
+void Paddle::MoveDown(Uint32 deltaTicks, const int screenHeight)
 {
 	_ypos += _movementSpeed * deltaTicks;
+	if (_ypos > (screenHeight - _height))
+	{
+		_ypos = screenHeight - _height;
+	}
 	UpdateRectanglePos();
 }
 
