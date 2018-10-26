@@ -67,22 +67,29 @@ int main(int argc, char* args[])
 			}
 			else if (sdlEvent.type == SDL_KEYDOWN)
 			{
-				switch (sdlEvent.key.keysym.sym)
-				{
-				case SDLK_w:
-					// move player 1 up
-					break;
-				case SDLK_s:
-					// move player 1 down
-					break;
-				case SDLK_UP:
-					// move player 2 up
-					break;
-				case SDLK_DOWN:
-					// move player 2 down
-					break;
-				}
+				// handle keyboard input... probably
 			}
+		}
+
+		// get keyboard states and handle paddle movement
+		const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
+
+		if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
+		{
+			player1->MoveUp(currentTicks);
+		}
+		else if (keyStates[SDL_SCANCODE_S] && !keyStates[SDL_SCANCODE_W])
+		{
+			player1->MoveDown(currentTicks);
+		}
+
+		if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
+		{
+			player2->MoveUp(currentTicks);
+		}
+		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
+		{
+			player2->MoveDown(currentTicks);
 		}
 
 		// clear then update the screen
@@ -91,7 +98,7 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, &player2->GetRectangle());
 		SDL_RenderPresent(renderer);
 
-		std::cout << currentTicks;
+		//std::cout << currentTicks;
 	}
 
 	/* Cleanup */

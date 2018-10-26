@@ -4,6 +4,7 @@
 const std::string Paddle::_ImageFileName = "./img/Paddle.png";
 const int Paddle::_width = 10;
 const int Paddle::_height = 50;
+const float Paddle::_movementSpeed = 0.5;
 
 Paddle::Paddle()
 {
@@ -71,13 +72,13 @@ bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 
 void Paddle::MoveUp(Uint32 deltaTicks)
 {
-	_ypos -= 1 * deltaTicks;
+	_ypos -= _movementSpeed * deltaTicks;
 	UpdateRectanglePos();
 }
 
 void Paddle::MoveDown(Uint32 deltaTicks)
 {
-	_ypos += 1 * deltaTicks;
+	_ypos += _movementSpeed * deltaTicks;
 	UpdateRectanglePos();
 }
 
