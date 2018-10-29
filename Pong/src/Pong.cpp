@@ -35,11 +35,8 @@ int main(int argc, char* args[])
 
 	SDL_Event sdlEvent;	// SDL event
 
-	Paddle* player1 = new Paddle(1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
-	player1->LoadDefaultImage(renderer);
-
-	Paddle* player2 = new Paddle(2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
-	player2->LoadDefaultImage(renderer);
+	Paddle* player1 = new Paddle(renderer, 1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
+	Paddle* player2 = new Paddle(renderer, 2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
 
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
@@ -52,6 +49,7 @@ int main(int argc, char* args[])
 		currentTicks = SDL_GetTicks() - previousTicks;
 		previousTicks = SDL_GetTicks();
 
+		// prevent a tick of 0; since FPS is capped, may be able to remove this eventually
 		if (currentTicks == 0)
 		{
 			SDL_Delay(1);
@@ -74,28 +72,30 @@ int main(int argc, char* args[])
 		// get keyboard states and handle paddle movement
 		const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
 
+		// player 1 movement - move if only 1 key is pressed, prevents movement from both keys
 		if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
 		{
 			player1->MoveUp(currentTicks);
 		}
 		else if (keyStates[SDL_SCANCODE_S] && !keyStates[SDL_SCANCODE_W])
 		{
-			player1->MoveDown(currentTicks);
+			player1->MoveDown(currentTicks, SCREEN_HEIGHT);
 		}
 
+		// player 2 movement - move if only 1 key is pressed, prevents movement from both keys
 		if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
 		{
 			player2->MoveUp(currentTicks);
 		}
 		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
 		{
-			player2->MoveDown(currentTicks);
+			player2->MoveDown(currentTicks, SCREEN_HEIGHT);
 		}
 
 		// clear then update the screen
 		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, &player1->GetRectangle());
-		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, &player2->GetRectangle());
+		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, player1->GetRectangle());
+		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, player2->GetRectangle());
 		SDL_RenderPresent(renderer);
 
 		// cap frame rate
@@ -104,7 +104,7 @@ int main(int argc, char* args[])
 			SDL_Delay(MAX_FPS_TICKS - currentTicks);
 		}
 
-		std::cout << currentTicks << std::endl;
+		//std::cout << currentTicks << std::endl;
 	}
 
 	/* Cleanup */

@@ -10,12 +10,15 @@ Paddle::Paddle()
 {
 	_player = 1;
 	_bIsComputerControlled = false;
+	_texture = new Texture();
 }
 
-Paddle::Paddle(uint8_t player, int windowWidth, int windowHeight, bool icc)
+Paddle::Paddle(SDL_Renderer* &renderer, uint8_t player, int windowWidth, int windowHeight, bool icc)
 {
 	_player = player;
 	_bIsComputerControlled = icc;
+	_texture = new Texture();
+	_texture->LoadImage(renderer, _ImageFileName);
 
 	// set X position based off of which player it is
 	switch (player)
@@ -33,10 +36,8 @@ Paddle::Paddle(uint8_t player, int windowWidth, int windowHeight, bool icc)
 	// set paddle to the middle of the window
 	_ypos = (windowHeight / 2) - (_height / 2);
 
-	_rectangle.x = _xpos;
-	_rectangle.y = _ypos;
-	_rectangle.w = _width;
-	_rectangle.h = _height;
+	// create new rectangle
+	_texture->SetRectangle(_xpos, _ypos, _width, _height, true);
 }
 
 void Paddle::setPlayerControlled(bool b, uint8_t p)
@@ -45,51 +46,41 @@ void Paddle::setPlayerControlled(bool b, uint8_t p)
 	_bIsComputerControlled = b;
 }
 
-bool Paddle::LoadDefaultImage(SDL_Renderer* &renderer)
-{
-	return LoadImage(renderer, _ImageFileName);
-}
-
 bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 {
-	SDL_Surface* loadedImage = nullptr;
-	SDL_Texture* texture = nullptr;
-
-	// load image from file
-	loadedImage = IMG_Load(file.c_str());
-
-	if (loadedImage == nullptr)
-	{
-		_image = nullptr;
-		return false;
-	}
-
-	texture = SDL_CreateTextureFromSurface(renderer, loadedImage);
-	SDL_FreeSurface(loadedImage);
-	_image = texture;
-	return true;
+	_texture = new Texture();
+	return _texture->LoadImage(renderer, file);
 }
 
 void Paddle::MoveUp(Uint32 deltaTicks)
 {
-	_ypos -= _movementSpeed * deltaTicks;
+	_ypos -= (int) std::round(_movementSpeed * deltaTicks);
+	// check to ensure paddle is not going outside screen
+	if (_ypos < 0)
+	{
+		_ypos = 0;
+	}
 	UpdateRectanglePos();
 }
 
-void Paddle::MoveDown(Uint32 deltaTicks)
+void Paddle::MoveDown(Uint32 deltaTicks, const int screenHeight)
 {
-	_ypos += _movementSpeed * deltaTicks;
+	_ypos += (int) std::round(_movementSpeed * deltaTicks);
+	// check to ensure paddle is not going outside screen
+	if (_ypos > (screenHeight - _height))
+	{
+		_ypos = screenHeight - _height;
+	}
 	UpdateRectanglePos();
 }
 
 void Paddle::UpdateRectanglePos()
 {
-	_rectangle.x = _xpos;
-	_rectangle.y = _ypos;
+	_texture->GetRectangle()->x = _xpos;
+	_texture->GetRectangle()->y = _ypos;
 }
 
 Paddle::~Paddle()
 {
-	SDL_DestroyTexture(_image);
-	_image = nullptr;
+	delete _texture;
 }
