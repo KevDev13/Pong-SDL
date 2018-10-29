@@ -16,7 +16,6 @@ public:
 	Paddle(SDL_Renderer* &renderer, uint8_t player, int windowWidth, int windowHeight, bool icc = false);
 	~Paddle();
 	void setPlayerControlled(bool b, uint8_t p = 0);
-	bool LoadDefaultImage(SDL_Renderer* &renderer);
 	bool LoadImage(SDL_Renderer* &renderer, std::string file);
 	void MoveUp(Uint32 deltaTicks);
 	void MoveDown(Uint32 deltaTicks, const int screenHeight);
@@ -30,8 +29,6 @@ public:
 private:
 	uint8_t _player;	// player 1 or 2
 	bool _bIsComputerControlled;	// is the computer controlling this paddle?
-	SDL_Texture* _image;	// texture of the paddle
-	SDL_Rect _rectangle;	// rectangle used to render the paddle
 	Texture* _texture;	// texture for paddle image
 	int _ypos;	// current Y-position of the paddle
 	int _xpos;	// current X-position of the paddle

@@ -46,11 +46,6 @@ void Paddle::setPlayerControlled(bool b, uint8_t p)
 	_bIsComputerControlled = b;
 }
 
-bool Paddle::LoadDefaultImage(SDL_Renderer* &renderer)
-{
-	return LoadImage(renderer, _ImageFileName);
-}
-
 bool Paddle::LoadImage(SDL_Renderer* &renderer, std::string file)
 {
 	_texture = new Texture();

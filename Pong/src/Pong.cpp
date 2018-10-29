@@ -36,10 +36,7 @@ int main(int argc, char* args[])
 	SDL_Event sdlEvent;	// SDL event
 
 	Paddle* player1 = new Paddle(renderer, 1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
-	player1->LoadDefaultImage(renderer);
-
 	Paddle* player2 = new Paddle(renderer, 2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
-	player2->LoadDefaultImage(renderer);
 
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
