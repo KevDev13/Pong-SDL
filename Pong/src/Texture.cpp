@@ -2,6 +2,8 @@
 
 Texture::Texture()
 {
+	_image = nullptr;
+	_rectangle = new SDL_Rect();
 }
 
 bool Texture::LoadImage(SDL_Renderer* &renderer, std::string file)
@@ -24,6 +26,21 @@ bool Texture::LoadImage(SDL_Renderer* &renderer, std::string file)
 	return true;
 }
 
+void Texture::SetRectangle(int x, int y, int w, int h, bool createNewRect)
+{
+	if (createNewRect)
+	{
+		_rectangle = new SDL_Rect();
+	}
+	_rectangle->x = x;
+	_rectangle->y = y;
+	_rectangle->w = w;
+	_rectangle->h = h;
+}
+
 Texture::~Texture()
 {
+	SDL_DestroyTexture(_image);
+	_image = nullptr;
+	_rectangle = nullptr;
 }
