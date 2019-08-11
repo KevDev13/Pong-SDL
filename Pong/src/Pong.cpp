@@ -16,6 +16,12 @@ constexpr int MAX_FPS_TICKS = 1000 / MAX_FPS;	// max FPS in ticks
 bool init(SDL_Window* &window, SDL_Renderer* &renderer);
 void cleanup(SDL_Window* &window, SDL_Renderer* &renderer);
 
+enum State
+{
+	TitleScreen,
+
+};
+
 int main(int argc, char* args[])
 {
 	/* Initialization */
