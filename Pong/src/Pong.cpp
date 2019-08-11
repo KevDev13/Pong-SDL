@@ -111,7 +111,7 @@ int main(int argc, char* args[])
 		if (currentState == State::Start && keyStates[SDL_SCANCODE_SPACE])
 		{
 			// start the game
-			ball = new Ball(renderer, SCREEN_HEIGHT, SCREEN_WIDTH, player1->GetRectangle()->x);
+			ball = new Ball(renderer, SCREEN_HEIGHT, SCREEN_WIDTH, player1->GetRectangle()->y);
 
 			currentState = State::Playing;
 		}
