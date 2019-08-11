@@ -20,6 +20,8 @@ bool Texture::LoadImage(SDL_Renderer* &renderer, std::string file)
 		return false;
 	}
 
+	SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0, 0xFF, 0xFF));
+
 	texture = SDL_CreateTextureFromSurface(renderer, loadedImage);
 	SDL_FreeSurface(loadedImage);
 	_image = texture;
