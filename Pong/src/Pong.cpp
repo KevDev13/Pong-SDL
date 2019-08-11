@@ -19,7 +19,9 @@ void cleanup(SDL_Window* &window, SDL_Renderer* &renderer);
 enum State
 {
 	TitleScreen,
-
+	Start,
+	Playing,
+	End
 };
 
 int main(int argc, char* args[])
@@ -36,8 +38,8 @@ int main(int argc, char* args[])
 		return 1;
 	}
 	
-	// value will be set to true when user wants to quit the game
-	bool quit = false;
+	bool quit = false;	// value will be set to true when user wants to quit the game
+	int currentState = State::TitleScreen;	// current state of the game
 
 	SDL_Event sdlEvent;	// SDL event
 
@@ -47,6 +49,9 @@ int main(int argc, char* args[])
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
 	Uint32 previousTicks = SDL_GetTicks();
+
+	/* REMOVE THIS ONCE MAIN MENU IS IN PLACE */
+	currentState = State::Start;
 	
 	/* MAIN LOOP */
 	while (!quit)
@@ -96,6 +101,14 @@ int main(int argc, char* args[])
 		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
 		{
 			player2->MoveDown(currentTicks, SCREEN_HEIGHT);
+		}
+
+		// handle if game needs to be started by a player
+		if (currentState == State::Start && keyStates[SDL_SCANCODE_SPACE])
+		{
+			// start the game
+
+			currentState = State::Playing;
 		}
 
 		// clear then update the screen
