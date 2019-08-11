@@ -116,6 +116,12 @@ int main(int argc, char* args[])
 			currentState = State::Playing;
 		}
 
+		// move ball if it exists
+		if (ball)
+		{
+			ball->MoveBall(currentTicks);
+		}
+
 		// clear then update the screen
 		SDL_RenderClear(renderer);
 		// really what we should do here is have all images to be shown inherit from the same base class
