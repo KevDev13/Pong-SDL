@@ -5,8 +5,10 @@ Pong clone.
 #include <SDL.h>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 #include "Paddle.h"
+#include "Ball.h"
 
 constexpr int SCREEN_HEIGHT = 480;
 constexpr int SCREEN_WIDTH = 640;
@@ -45,6 +47,8 @@ int main(int argc, char* args[])
 
 	Paddle* player1 = new Paddle(renderer, 1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
 	Paddle* player2 = new Paddle(renderer, 2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
+
+	Ball* ball = nullptr;
 
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
@@ -107,14 +111,22 @@ int main(int argc, char* args[])
 		if (currentState == State::Start && keyStates[SDL_SCANCODE_SPACE])
 		{
 			// start the game
+			ball = new Ball();
 
 			currentState = State::Playing;
 		}
 
 		// clear then update the screen
 		SDL_RenderClear(renderer);
+		// really what we should do here is have all images to be shown inherit from the same base class
+		// then, add them all to a vector and go through the vector to render them
+		// but alas, maybe next time
 		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, player1->GetRectangle());
 		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, player2->GetRectangle());
+		if (ball)	// if the ball exists
+		{
+			SDL_RenderCopy(renderer, ball->GetImage(), nullptr, ball->GetRectangle());
+		}
 		SDL_RenderPresent(renderer);
 
 		// cap frame rate
