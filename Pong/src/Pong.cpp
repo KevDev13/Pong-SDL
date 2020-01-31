@@ -5,8 +5,10 @@ Pong clone.
 #include <SDL.h>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 #include "Paddle.h"
+#include "Ball.h"
 
 constexpr int SCREEN_HEIGHT = 480;
 constexpr int SCREEN_WIDTH = 640;
@@ -15,6 +17,14 @@ constexpr int MAX_FPS_TICKS = 1000 / MAX_FPS;	// max FPS in ticks
 
 bool init(SDL_Window* &window, SDL_Renderer* &renderer);
 void cleanup(SDL_Window* &window, SDL_Renderer* &renderer);
+
+enum State
+{
+	TitleScreen,
+	Start,
+	Playing,
+	End
+};
 
 int main(int argc, char* args[])
 {
@@ -30,17 +40,22 @@ int main(int argc, char* args[])
 		return 1;
 	}
 	
-	// value will be set to true when user wants to quit the game
-	bool quit = false;
+	bool quit = false;	// value will be set to true when user wants to quit the game
+	int currentState = State::TitleScreen;	// current state of the game
 
 	SDL_Event sdlEvent;	// SDL event
 
 	Paddle* player1 = new Paddle(renderer, 1, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 1
 	Paddle* player2 = new Paddle(renderer, 2, SCREEN_WIDTH, SCREEN_HEIGHT);	// paddle for player 2
 
+	Ball* ball = nullptr;
+
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
 	Uint32 previousTicks = SDL_GetTicks();
+
+	/* REMOVE THIS ONCE MAIN MENU IS IN PLACE */
+	currentState = State::Start;
 	
 	/* MAIN LOOP */
 	while (!quit)
@@ -92,10 +107,32 @@ int main(int argc, char* args[])
 			player2->MoveDown(currentTicks, SCREEN_HEIGHT);
 		}
 
+		// handle if game needs to be started by a player
+		if (currentState == State::Start && keyStates[SDL_SCANCODE_SPACE])
+		{
+			// start the game
+			ball = new Ball(renderer, SCREEN_HEIGHT, SCREEN_WIDTH, player1->GetRectangle()->y + 25 - 4);	// add 25 to account for paddle height then subtract 4 to account for ball height
+
+			currentState = State::Playing;
+		}
+
+		// move ball if it exists
+		if (ball)
+		{
+			ball->MoveBall(currentTicks);
+		}
+
 		// clear then update the screen
 		SDL_RenderClear(renderer);
+		// really what we should do here is have all images to be shown inherit from the same base class
+		// then, add them all to a vector and go through the vector to render them
+		// but alas, maybe next time
 		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, player1->GetRectangle());
 		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, player2->GetRectangle());
+		if (ball)	// if the ball exists
+		{
+			SDL_RenderCopy(renderer, ball->GetImage(), nullptr, ball->GetRectangle());
+		}
 		SDL_RenderPresent(renderer);
 
 		// cap frame rate

@@ -25,6 +25,8 @@ public:
 	inline bool isPlayerControlled() const { return !_bIsComputerControlled; }
 	inline SDL_Texture* GetImage() const { return _texture->GetImage(); }
 	inline SDL_Rect* GetRectangle() const { return _texture->GetRectangle(); }
+	inline int GetPositionX() const { return _xpos; }
+	inline int GetPositionY() const { return _ypos; }
 
 private:
 	uint8_t _player;	// player 1 or 2
