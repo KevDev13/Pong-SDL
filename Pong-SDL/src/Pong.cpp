@@ -78,10 +78,10 @@ int main(int argc, char* args[])
 			{
 				quit = true;
 			}
-			else if (sdlEvent.type == SDL_KEYDOWN)
-			{
+			//else if (sdlEvent.type == SDL_KEYDOWN)
+			//{
 				// handle keyboard input... probably
-			}
+			//}
 		}
 
 		// get keyboard states and handle paddle movement
