@@ -9,6 +9,7 @@ Pong clone.
 
 #include "Paddle.h"
 #include "Ball.h"
+#include "Timer.h"
 
 constexpr int SCREEN_HEIGHT = 480;
 constexpr int SCREEN_WIDTH = 640;
