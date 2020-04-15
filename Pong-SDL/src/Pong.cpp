@@ -92,6 +92,15 @@ int main(int argc, char* args[])
 			quit = true;
 		}
 
+
+		// clear then update the screen
+		SDL_RenderClear(renderer);
+		/* really what we should do here is have all images to be shown inherit from the same base class
+			then, add them all to a vector and go through the vector to render them
+			but alas, maybe next time */
+		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, player1->GetRectangle());
+		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, player2->GetRectangle());
+
 		switch (currentState)
 		{
 			case State::Start:
@@ -131,23 +140,13 @@ int main(int argc, char* args[])
 				if (ball)
 				{
 					ball->MoveBall(currentTicks);
+					SDL_RenderCopy(renderer, ball->GetImage(), nullptr, ball->GetRectangle());
 				}
 				break;
 			default:
 				break;
 		}
 
-		// clear then update the screen
-		SDL_RenderClear(renderer);
-		// really what we should do here is have all images to be shown inherit from the same base class
-		// then, add them all to a vector and go through the vector to render them
-		// but alas, maybe next time
-		SDL_RenderCopy(renderer, player1->GetImage(), nullptr, player1->GetRectangle());
-		SDL_RenderCopy(renderer, player2->GetImage(), nullptr, player2->GetRectangle());
-		if (ball)	// if the ball exists
-		{
-			SDL_RenderCopy(renderer, ball->GetImage(), nullptr, ball->GetRectangle());
-		}
 		SDL_RenderPresent(renderer);
 
 		// cap frame rate
