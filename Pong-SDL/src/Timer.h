@@ -14,7 +14,7 @@ public:
 	bool Start();
 	bool Stop();
 	bool Pause();
-	bool Reset();
+	void Reset();
 	bool Restart();
 
 	Uint32 GetTicks();
@@ -29,5 +29,7 @@ protected:
 	
 	bool _Paused;
 	bool _Started;
+
+	void ForceStop();
 };
 

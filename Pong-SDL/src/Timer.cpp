@@ -54,11 +54,7 @@ bool Timer::Stop()
 		return false;
 	}
 
-	_Started = false;
-	_Paused = false;
-
-	_StartTicks = 0;
-	_PausedTicks = 0;
+	ForceStop();
 
 	return true;
 }
@@ -75,4 +71,18 @@ bool Timer::Pause()
 	_PausedTicks = SDL_GetTicks() - _StartTicks;
 
 	return true;
+}
+
+void Timer::Reset()
+{
+	ForceStop();
+}
+
+void Timer::ForceStop()
+{
+	_Started = false;
+	_Paused = false;
+
+	_StartTicks = 0;
+	_PausedTicks = 0;
 }
