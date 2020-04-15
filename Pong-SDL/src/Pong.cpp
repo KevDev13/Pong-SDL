@@ -42,6 +42,8 @@ int main(int argc, char* args[])
 	
 	bool quit = false;	// value will be set to true when user wants to quit the game
 	int currentState = State::TitleScreen;	// current state of the game
+	/* REMOVE THIS ONCE MAIN MENU IS IN PLACE */
+	currentState = State::Start; // until a Main Menu is programmed, so straight to this state
 
 	SDL_Event sdlEvent;	// SDL event
 
@@ -53,9 +55,6 @@ int main(int argc, char* args[])
 	// setup initial ticks for delta time calculations
 	Uint32 currentTicks = SDL_GetTicks();
 	Uint32 previousTicks = SDL_GetTicks();
-
-	/* REMOVE THIS ONCE MAIN MENU IS IN PLACE */
-	currentState = State::Start;
 	
 	/* MAIN LOOP */
 	while (!quit)
@@ -87,47 +86,55 @@ int main(int argc, char* args[])
 		// get keyboard states and handle paddle movement
 		const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
 
-		/* Handle Player Input */
-
-		// player 1 movement - move if only 1 key is pressed, prevents movement from both keys
-		if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
-		{
-			player1->MoveUp(currentTicks);
-		}
-		else if (keyStates[SDL_SCANCODE_S] && !keyStates[SDL_SCANCODE_W])
-		{
-			player1->MoveDown(currentTicks, SCREEN_HEIGHT);
-		}
-
-		// player 2 movement - move if only 1 key is pressed, prevents movement from both keys
-		if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
-		{
-			player2->MoveUp(currentTicks);
-		}
-		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
-		{
-			player2->MoveDown(currentTicks, SCREEN_HEIGHT);
-		}
-
 		// if someone hits the Esc key, then quit
 		if (keyStates[SDL_SCANCODE_ESCAPE])
 		{
 			quit = true;
 		}
 
-		// handle if game needs to be started by a player
-		if (currentState == State::Start && keyStates[SDL_SCANCODE_SPACE])
+		switch (currentState)
 		{
-			// start the game
-			ball = new Ball(renderer, SCREEN_HEIGHT, SCREEN_WIDTH, player1->GetRectangle()->y + 25 - 4);	// add 25 to account for paddle height then subtract 4 to account for ball height
+			case State::Start:
+				// handle if game needs to be started by a player
+				if (keyStates[SDL_SCANCODE_SPACE])
+				{
+					// start the game
+					ball = new Ball(renderer, SCREEN_HEIGHT, SCREEN_WIDTH, player1->GetRectangle()->y + 25 - 4);	// add 25 to account for paddle height then subtract 4 to account for ball height
 
-			currentState = State::Playing;
-		}
+					currentState = State::Playing;
+				}
 
-		// move ball if it exists
-		if (ball)
-		{
-			ball->MoveBall(currentTicks);
+				break;
+			case State::Playing:
+
+				// player 1 movement - move if only 1 key is pressed, prevents movement from both keys
+				if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
+				{
+					player1->MoveUp(currentTicks);
+				}
+				else if (keyStates[SDL_SCANCODE_S] && !keyStates[SDL_SCANCODE_W])
+				{
+					player1->MoveDown(currentTicks, SCREEN_HEIGHT);
+				}
+
+				// player 2 movement - move if only 1 key is pressed, prevents movement from both keys
+				if (keyStates[SDL_SCANCODE_UP] && !keyStates[SDL_SCANCODE_DOWN])
+				{
+					player2->MoveUp(currentTicks);
+				}
+				else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
+				{
+					player2->MoveDown(currentTicks, SCREEN_HEIGHT);
+				}
+
+				// move ball if it exists
+				if (ball)
+				{
+					ball->MoveBall(currentTicks);
+				}
+				break;
+			default:
+				break;
 		}
 
 		// clear then update the screen
@@ -153,6 +160,7 @@ int main(int argc, char* args[])
 	}
 
 	/* Cleanup */
+	currentState = State::End;
 	cleanup(window, renderer);
 
 	return 0;
