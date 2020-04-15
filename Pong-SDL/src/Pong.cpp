@@ -87,6 +87,8 @@ int main(int argc, char* args[])
 		// get keyboard states and handle paddle movement
 		const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
 
+		/* Handle Player Input */
+
 		// player 1 movement - move if only 1 key is pressed, prevents movement from both keys
 		if (keyStates[SDL_SCANCODE_W] && !keyStates[SDL_SCANCODE_S])
 		{
@@ -105,6 +107,12 @@ int main(int argc, char* args[])
 		else if (keyStates[SDL_SCANCODE_DOWN] && !keyStates[SDL_SCANCODE_UP])
 		{
 			player2->MoveDown(currentTicks, SCREEN_HEIGHT);
+		}
+
+		// if someone hits the Esc key, then quit
+		if (keyStates[SDL_SCANCODE_ESCAPE])
+		{
+			quit = true;
 		}
 
 		// handle if game needs to be started by a player
