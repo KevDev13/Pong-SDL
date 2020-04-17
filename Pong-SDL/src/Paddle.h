@@ -2,13 +2,15 @@
 Paddle class
 */
 
+#pragma once
+
 #include <stdint.h>
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Texture.h"
 
-#pragma once
+
 class Paddle
 {
 public:
