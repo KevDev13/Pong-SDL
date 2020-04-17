@@ -7,6 +7,11 @@ const float Ball::_movementSpeed = 0.1f;
 
 Ball::Ball()
 {
+	_texture = new Texture();
+	_xpos = 0;
+	_ypos = 0;
+	_xMovement = 0;
+	_yMovement = 0;
 }
 
 
