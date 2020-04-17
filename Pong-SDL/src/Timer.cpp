@@ -78,6 +78,36 @@ void Timer::Reset()
 	ForceStop();
 }
 
+void Timer::Restart()
+{
+	if (_Started)
+	{
+		Pause();
+	}
+
+	Reset();
+	Start();
+}
+
+Uint32 Timer::GetTicks()
+{
+	if (_Started)
+	{
+		if (_Paused)
+		{
+			return _PausedTicks;
+		}
+		else
+		{
+			return SDL_GetTicks() - _StartTicks;
+		}
+	}
+
+	// if we get here, timer hasn't been started yet, so return 0.
+	// this effectively is our "else" statement
+	return 0;
+}
+
 void Timer::ForceStop()
 {
 	_Started = false;
