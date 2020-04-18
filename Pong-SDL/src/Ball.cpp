@@ -20,7 +20,7 @@ Ball::~Ball()
 	delete _texture;
 }
 
-Ball::Ball(SDL_Renderer* &renderer, int windowWidth, int windowHeight, int yPos)
+Ball::Ball(SDL_Renderer* &renderer, int yPos)
 {
 	_texture = new Texture();
 	_texture->LoadImage(renderer, _ImageFileName);

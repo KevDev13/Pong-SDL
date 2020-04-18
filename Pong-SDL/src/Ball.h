@@ -11,7 +11,7 @@ class Ball
 public:
 	Ball();
 	~Ball();
-	Ball(SDL_Renderer* &renderer, int windowWidth, int windowHeight, int yPos);
+	Ball(SDL_Renderer* &renderer, int yPos);
 
 	bool LoadImage(SDL_Renderer* &renderer, std::string file);
 	void MoveBall(Uint32 deltaTicks);

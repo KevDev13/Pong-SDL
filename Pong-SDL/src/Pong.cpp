@@ -109,7 +109,7 @@ int main(int argc, char* args[])
 				if (keyStates[SDL_SCANCODE_SPACE])
 				{
 					// start the game
-					ball = new Ball(renderer, SCREEN_HEIGHT, SCREEN_WIDTH, player1->GetRectangle()->y + 25 - 4);	// add 25 to account for paddle height then subtract 4 to account for ball height
+					ball = new Ball(renderer, player1->GetRectangle()->y + 25 - 4);	// add 25 to account for paddle height then subtract 4 to account for ball height
 
 					currentState = State::Playing;
 				}
