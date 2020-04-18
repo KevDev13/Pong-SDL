@@ -13,7 +13,7 @@ Paddle::Paddle()
 	_texture = new Texture();
 }
 
-Paddle::Paddle(SDL_Renderer* &renderer, uint8_t player, int windowWidth, int windowHeight, bool icc)
+Paddle::Paddle(SDL_Renderer* &renderer, uint8_t player, bool icc)
 {
 	_player = player;
 	_bIsComputerControlled = icc;
@@ -27,14 +27,14 @@ Paddle::Paddle(SDL_Renderer* &renderer, uint8_t player, int windowWidth, int win
 		_xpos = 20;
 		break;
 	case 2:
-		_xpos = windowWidth - 20 - _width;
+		_xpos = SCREEN_WIDTH - 20 - _width;
 		break;
 	default:
 		std::cout << "Error, paddle configured to something other than player 1 or 2" << std::endl;
 	}
 
 	// set paddle to the middle of the window
-	_ypos = (windowHeight / 2) - (_height / 2);
+	_ypos = (SCREEN_HEIGHT / 2) - (_height / 2);
 
 	// create new rectangle
 	_texture->SetRectangle(_xpos, _ypos, _width, _height, true);

@@ -10,12 +10,14 @@ Paddle class
 #include <SDL_image.h>
 #include "Texture.h"
 
+extern const int SCREEN_HEIGHT;
+extern const int SCREEN_WIDTH;
 
 class Paddle
 {
 public:
 	Paddle();
-	Paddle(SDL_Renderer* &renderer, uint8_t player, int windowWidth, int windowHeight, bool icc = false);
+	Paddle(SDL_Renderer* &renderer, uint8_t player, bool icc = false);
 	~Paddle();
 	void setPlayerControlled(bool b, uint8_t p = 0);
 	bool LoadImage(SDL_Renderer* &renderer, std::string file);
